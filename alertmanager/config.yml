@@ -1,0 +1,9 @@
+route:
+  receiver: 'telegram'
+
+receivers:
+  - name: 'telegram'
+    telegram_configs:
+      - bot_token: '8814684859:AAGtIlggztfixSqJRFaBJbsAU5wP4BG0fL0'
+        chat_id: 5108126410
+        message: 'ALERT: {{ .CommonAnnotations.summary }}'

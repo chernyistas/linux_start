@@ -17,8 +17,10 @@ services:
     container_name: nginx-web
     ports:
       - "8080:80"
+      - "8443:443"
     volumes:
         - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf:ro
+        - ./nginx-ssl:/etc/nginx/ssl:ro
     networks:
       - web-net
     restart: unless-stopped
@@ -52,6 +54,65 @@ services:
       - web-net
     restart: unless-stopped
 
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - web-net
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - web-net
+    volumes:
+      - grafana_data:/var/lib/grafana
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - web-net
+    restart: unless-stopped
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8082:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - web-net
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/config.yml:ro
+    networks:
+      - web-net
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+
 
 networks:
   web-net:
@@ -60,3 +121,4 @@ networks:
 
 volumes:
   postgres_data:
+  grafana_data:

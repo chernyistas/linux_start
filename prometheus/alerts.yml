@@ -1,0 +1,41 @@
+groups:
+  - name: flask_app_alerts
+    rules:
+      # ===== 1. Алерт на медленные запросы =====
+      - alert: FlaskAppSlowRequests
+        expr: |
+          # Вычисляем 95-й перцентиль времени ответа на запросы к /db за последние 5 минут
+          histogram_quantile(0.95, sum(rate(flask_http_request_duration_seconds_bucket{method="GET", endpoint="/db"}[5m])) by (le)
+          ) > 1.0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Flask: Медленные запросы к /db"
+          description: "95-й перцентиль времени ответа на /db превышает 1 секунду (текущее значение: {{ $value }}s)"
+
+      # ===== 2. Алерт на высокий процент ошибок (HTTP 5xx) =====
+      - alert: FlaskAppHighErrorRate
+        expr: |
+          # Считаем долю запросов с кодом 5xx относительно общего числа запросов
+          (
+            sum(rate(flask_http_request_total{status=~"5.."}[5m]))
+            /
+            sum(rate(flask_http_request_total[5m]))
+          ) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Flask: высокий процент ошибок (5xx)"
+          description: "Доля ошибок 5xx превышает 5% за последние 5 минут ( текущее значение: {{ $value }}%)"
+
+      # ===== 3. Алерт на падение контейнера (был ранее) =====
+      - alert: FlaskAppDown
+        expr: up{job="flask-app"}  == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Контейнер flask-app не отвечает!"
+          description: "Prometheus не получает метрики от flask-app. Возможно, контейнер упал."
