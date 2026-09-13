@@ -1,0 +1,43 @@
+# ============================================================
+# 1. Deployment — управляет Pod'ом Adminer
+# ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer
+        image: adminer:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ADMINER_DEFAULT_SERVER
+          value: postgres-service
+
+---
+
+# ============================================================
+# 2. Service — даёт постоянный адрес для Adminer
+# ============================================================
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer-service
+spec:
+  selector:
+    app: adminer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  type: ClusterIP

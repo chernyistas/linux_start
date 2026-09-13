@@ -26,7 +26,7 @@ def db_check():
             dbname=os.environ.get('POSTGRES_DB'),
             user=os.environ.get('POSTGRES_USER'),
 	    password=os.environ.get('POSTGRES_PASSWORD'),
-	    host='postgres-db'
+	    host='postgres-service'
 	)
         cur = conn.cursor()
         cur.execute('SELECT version()')
