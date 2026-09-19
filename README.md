@@ -20,6 +20,7 @@
 | 13 | Kubernetes | Манифесты для Flask, PostgreSQL, Adminer, Ingress |
 | 14 | Мониторинг в K8s | kube-prometheus-stack через Helm |
 | 15 | Алертинг в K8s | Alertmanager + Telegram + ServiceMonitor + PrometheusRule |
+| 16 | CI/CD в K8s | GitHub Actions + self-hosted runner + автоматический деплой |
 
 ---
 
@@ -40,29 +41,40 @@
 
 ```text
 devops-practice/
-├── app/                       # Flask-приложение
-│   ├── app.py                 # Код приложения + метрики
-│   ├── requirements.txt       # Зависимости
-│   └── Dockerfile             # Сборка образа
-├── k8s/                       # Манифесты Kubernetes
-│   ├── postgres.yaml          # PostgreSQL (StatefulSet + Service + Secret)
-│   ├── flask-app.yaml         # Flask (Deployment + Service)
-│   ├── adminer.yaml           # Adminer (Deployment + Service)
-│   ├── ingress-flask.yaml     # Ingress для Flask
-│   ├── ingress-adminer.yaml   # Ingress для Adminer (с rewrite)
-│   ├── monitoring-install.md  # Инструкция по установке мониторинга
-│   ├── flask-servicemonitor.yaml          # ServiceMonitor для Flask
-│   ├── alerts.yaml                        # PrometheusRule с алертами
-│   ├── alertmanager-telegram-values.yaml  # Helm values для Alertmanager
-│   └── alertmanager-config.yaml           # Конфиг Alertmanager (в .gitignore)
-├── prometheus/                # Конфиги Prometheus
-│   ├── prometheus.yml         # Сбор метрик
-│   └── alerts.yml             # Правила алертов
-├── alertmanager/              # Конфиг Alertmanager (Telegram)
-├── scripts/                   # Bash-скрипты
-├── notes/                     # Заметки по дням
-├── docker-compose.yml         # Docker Compose стек
-└── README.md                  # Этот файл
+├── app/                                    # Flask-приложение
+│   ├── app.py                              # Код + метрики
+│   ├── requirements.txt                    # Зависимости
+│   └── Dockerfile                          # Сборка образа
+│
+├── k8s/                                    # Манифесты Kubernetes
+│   ├── postgres.yaml                       # PostgreSQL (StatefulSet + Service + Secret)
+│   ├── flask-app.yaml                      # Flask (Deployment + Service)
+│   ├── adminer.yaml                        # Adminer (Deployment + Service)
+│   ├── ingress-flask.yaml                  # Ingress для Flask
+│   ├── ingress-adminer.yaml                # Ingress для Adminer (rewrite-target)
+│   ├── flask-servicemonitor.yaml           # ServiceMonitor для Flask (метрики)
+│   ├── alerts.yaml                         # PrometheusRule: FlaskAppDown/FlaskAppAbsent
+│   ├── alertmanager-telegram-values.yaml   # Helm values для Alertmanager
+│   ├── alertmanager-config.yaml            # Конфиг Alertmanager (в .gitignore)
+│   └── monitoring-install.md               # Инструкция по установке мониторинга
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml                      # CI/CD: сборка + деплой в K8s
+│
+├── prometheus/                             # Конфиги Prometheus (Docker Compose)
+│   ├── prometheus.yml                      # Сбор метрик
+│   └── alerts.yml                          # Правила алертов
+│
+├── alertmanager/                           # Конфиг Alertmanager (Docker Compose)
+│   └── config.yml
+│
+├── scripts/                                # Bash-скрипты
+├── notes/                                  # Заметки по дням
+├── docker-compose.yml                      # Стек Docker Compose
+├── .env                                    # Пароли (в .gitignore)
+├── .gitignore                              # alertmanager-config.yaml, .env, actions-runner/
+└── README.md                               # Этот файл
 ```
 
 ---
@@ -156,6 +168,7 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 13: Kubernetes
 - [x] День 14: Мониторинг в Kubernetes
 - [x] День 15: Алертинг в Kubernetes
+- [x] День 16: CI/CD в Kubernetes
 
 ---
 
