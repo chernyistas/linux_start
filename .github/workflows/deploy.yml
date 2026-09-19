@@ -41,13 +41,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Update deployment image
-        run: |
-          kubectl set image deployment/flask-app \
-            flask-app=${{ secrets.DOCKER_USERNAME }}/my-flask-app:${{ github.sha }}
-
-          kubectl rollout status deployment/flask-app --timeout=300s
-
       - name: Apply Kubernetes manifests
         run: |
           cd k8s
@@ -56,6 +49,13 @@ jobs:
           kubectl apply -f adminer.yaml
           kubectl apply -f ingress-flask.yaml
           kubectl apply -f ingress-adminer.yaml
+
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/flask-app \
+            flask-app=${{ secrets.DOCKER_USERNAME }}/my-flask-app:${{ github.sha }}
+
+          kubectl rollout status deployment/flask-app --timeout=300s
 
       - name: Check pods
         run: kubectl get pods
