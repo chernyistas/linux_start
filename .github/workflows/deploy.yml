@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,34 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
             ${{ secrets.DOCKER_USERNAME }}/my-flask-app:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Update deployment image
+        run: |
+          kubectl set image deployment/flask-app \
+            flask-app=${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
+
+          kubectl rollout status deployment/flask-app --timeout=300s
+
+      - name: Apply Kubernetes manifests
+        run: |
+          cd k8s
+          kubectl apply -f postgres.yaml
+          kubectl apply -f flask-app.yaml
+          kubectl apply -f adminer.yaml
+          kubectl apply -f ingress-flask.yaml
+          kubectl apply -f ingress-adminer.yaml
+
+      - name: Check pods
+        run: kubectl get pods
 
      # - name: Deploy to server
      #   uses: appleboy/ssh-action@v1.0.3

@@ -1,0 +1,58 @@
+# ============================================================
+# Настройки для kube-prometheus-stack.
+# Говорим Alertmanager: «Возьми готовый конфиг из Secret'а
+# alertmanager-config вместо автогенерации».
+# ============================================================
+
+alertmanager:
+  alertmanagerSpec:
+    configSecret: alertmanager-config
+
+# ============================================================
+# Отключаем встроенные правила и мониторинг компонентов,
+# которые в minikube всегда будут "down" (ложные алерты).
+# ============================================================
+
+# --- Отключаем мониторинг системных компонентов ---
+kubeControllerManager:
+  enabled: false       # controller-manager в minikube не отдаёт метрики
+
+kubeScheduler:
+  enabled: false       # scheduler в minikube не отдаёт метрики
+
+kubeEtcd:
+  enabled: false       # etcd в minikube не отдаёт метрики
+
+kubeProxy:
+  enabled: false       # kube-proxy тоже может шуметь
+
+# --- Отключаем часть встроенных правил (false positives) ---
+defaultRules:
+  rules:
+    # Watchdog (DeadMansSnitch) — оставляем, он полезен
+    alertmanager: true
+
+    # Отключаем правила для системных компонентов
+    kubeControllerManager: false
+    kubeScheduler: false
+    kubeEtcd: false
+    kubeProxy: false
+
+    # Отключаем CPU throttling (kindnet в minikube шумит)
+    kubernetesResources: false
+
+    # Остальные оставляем включёнными
+    general: true
+    kubeApiserverAvailability: true
+    kubeApiserverBurnrate: true
+    kubeApiserverHistogram: true
+    kubeApiserverSlos: true
+    kubelet: true
+    kubernetesApps: true
+    kubernetesStorage: true
+    kubernetesSystem: true
+    network: true
+    node: true
+    nodeExporter: true
+    prometheus: true
+    prometheusOperator: true
