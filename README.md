@@ -19,6 +19,7 @@
 | 11–12 | Метрики приложения | prometheus_flask_exporter + алерты в Telegram |
 | 13 | Kubernetes | Манифесты для Flask, PostgreSQL, Adminer, Ingress |
 | 14 | Мониторинг в K8s | kube-prometheus-stack через Helm |
+| 15 | Алертинг в K8s | Alertmanager + Telegram + ServiceMonitor + PrometheusRule |
 
 ---
 
@@ -49,7 +50,11 @@ devops-practice/
 │   ├── adminer.yaml           # Adminer (Deployment + Service)
 │   ├── ingress-flask.yaml     # Ingress для Flask
 │   ├── ingress-adminer.yaml   # Ingress для Adminer (с rewrite)
-│   └── monitoring-install.md  # Инструкция по установке мониторинга
+│   ├── monitoring-install.md  # Инструкция по установке мониторинга
+│   ├── flask-servicemonitor.yaml          # ServiceMonitor для Flask
+│   ├── alerts.yaml                        # PrometheusRule с алертами
+│   ├── alertmanager-telegram-values.yaml  # Helm values для Alertmanager
+│   └── alertmanager-config.yaml           # Конфиг Alertmanager (в .gitignore)
 ├── prometheus/                # Конфиги Prometheus
 │   ├── prometheus.yml         # Сбор метрик
 │   └── alerts.yml             # Правила алертов
@@ -150,7 +155,7 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 11–12: Метрики и алерты
 - [x] День 13: Kubernetes
 - [x] День 14: Мониторинг в Kubernetes
-- [ ] День 15: ...
+- [x] День 15: Алертинг в Kubernetes
 
 ---
 
