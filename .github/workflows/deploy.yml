@@ -44,7 +44,7 @@ jobs:
       - name: Update deployment image
         run: |
           kubectl set image deployment/flask-app \
-            flask-app=${{ secrets.DOCKER_USERNAME }}/my-flask-app:latest
+            flask-app=${{ secrets.DOCKER_USERNAME }}/my-flask-app:${{ github.sha }}
 
           kubectl rollout status deployment/flask-app --timeout=300s
 
