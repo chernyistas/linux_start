@@ -1,0 +1,33 @@
+# ============================================================
+# PrometheusRule — объект, который описывает правила алертов.
+# Оператор Prometheus автоматически подхватывает его
+# и добавляет правила в конфиг Prometheus.
+# ============================================================
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flask-app-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: flask-app
+      rules:
+        - alert: FlaskAppDown
+          expr: up{job="flask-service"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Flask-приложение не доступно"
+            description: "Prometheus не может получить метрики от flask-app более 1 минуты."
+
+        - alert: FlaskAppAbsent
+          expr: absent(up{job="flask-service"})
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Flask-приложение пропало из мониторинга"
+            description: "Prometheus не находит target flask-service больше 1 минуты. Возможно, Deployment масштабирован в 0 или удалён."
