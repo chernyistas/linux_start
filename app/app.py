@@ -14,7 +14,7 @@ REQUESTS = Counter('my_endpoint_requests_total', 'Total requests to /db endpoint
 
 @app.route('/')
 def hello():
-    return "Hello DevOps! It's {}".format(datetime.now())
+    return "Hello DevOps v2! It's {}".format(datetime.now())
 
 @app.route('/db')
 def db_check():
