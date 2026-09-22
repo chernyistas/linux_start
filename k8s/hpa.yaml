@@ -1,0 +1,29 @@
+# ============================================================
+# HorizontalPodAutoscaler (HPA) — автомасштабирование Pod'ов
+# ============================================================
+# HPA смотрит на метрики CPU Pod'ов и автоматически меняет
+# их количество:
+#   - если CPU > target — добавляет Pod'ы (до maxReplicas)
+#   - если CPU < target — удаляет Pod'ы (до minReplicas)
+# ============================================================
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: flask-app-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: flask-app
+
+  minReplicas: 2
+  maxReplicas: 10
+
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
