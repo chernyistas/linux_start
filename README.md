@@ -21,6 +21,7 @@
 | 14 | Мониторинг в K8s | kube-prometheus-stack через Helm |
 | 15 | Алертинг в K8s | Alertmanager + Telegram + ServiceMonitor + PrometheusRule |
 | 16 | CI/CD в K8s | GitHub Actions + self-hosted runner + автоматический деплой |
+| 17 | Автомасштабирование | HPA: 2–10 Pod'ов, target CPU 70% |
 
 ---
 
@@ -49,6 +50,7 @@ devops-practice/
 ├── k8s/                                    # Манифесты Kubernetes
 │   ├── postgres.yaml                       # PostgreSQL (StatefulSet + Service + Secret)
 │   ├── flask-app.yaml                      # Flask (Deployment + Service)
+│   ├── hpa.yaml                            # HPA: автомасштабирование Flask
 │   ├── adminer.yaml                        # Adminer (Deployment + Service)
 │   ├── ingress-flask.yaml                  # Ingress для Flask
 │   ├── ingress-adminer.yaml                # Ingress для Adminer (rewrite-target)
@@ -169,6 +171,7 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 14: Мониторинг в Kubernetes
 - [x] День 15: Алертинг в Kubernetes
 - [x] День 16: CI/CD в Kubernetes
+- [x] День 17: Автомасштабирование (HPA)
 
 ---
 
