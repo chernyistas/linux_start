@@ -22,6 +22,7 @@
 | 15 | Алертинг в K8s | Alertmanager + Telegram + ServiceMonitor + PrometheusRule |
 | 16 | CI/CD в K8s | GitHub Actions + self-hosted runner + автоматический деплой |
 | 17 | Автомасштабирование | HPA: 2–10 Pod'ов, target CPU 70% |
+| 18 | Terraform | IaC: Docker-провайдер, resources, state, variables, outputs |
 
 ---
 
@@ -59,6 +60,12 @@ devops-practice/
 │   ├── alertmanager-telegram-values.yaml   # Helm values для Alertmanager
 │   ├── alertmanager-config.yaml            # Конфиг Alertmanager (в .gitignore)
 │   └── monitoring-install.md               # Инструкция по установке мониторинга
+│
+├── terraform/                              # Terraform (IaC)
+│   ├── main.tf                             # Провайдер, ресурсы
+│   ├── variables.tf                        # Переменные
+│   ├── outputs.tf                          # Выходные данные
+│   └── README.md                           # Описание проекта
 │
 ├── .github/
 │   └── workflows/
@@ -172,6 +179,7 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 15: Алертинг в Kubernetes
 - [x] День 16: CI/CD в Kubernetes
 - [x] День 17: Автомасштабирование (HPA)
+- [x] День 18: Terraform (IaC)
 
 ---
 
