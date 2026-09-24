@@ -1,3 +1,17 @@
+# Секреты
 .env
 k8s/alertmanager-config.yaml
-k8s/alertmanager-config.yaml
+
+# Self-hosted runner
+actions-runner/
+
+# Terraform
+**/.terraform/
+**/.terraform.lock.hcl
+**/*.tfstate
+**/*.tfstate.backup
+**/*.tfvars
+
+# Резервные копии
+*.bak
+*.backup
