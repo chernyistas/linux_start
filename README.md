@@ -24,6 +24,7 @@
 | 17 | Автомасштабирование | HPA: 2–10 Pod'ов, target CPU 70% |
 | 18 | Terraform | IaC: Docker-провайдер, resources, state, variables, outputs |
 | 19 | Terraform + K8s | IaC для Kubernetes: Namespace, Deployment, Service |
+| 20 | Ansible | Playbooks, handlers, templates, roles |
 
 ---
 
