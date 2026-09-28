@@ -1,0 +1,11 @@
+---
+# handlers file for roles/nginx
+- name: Перезапустить nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Перезагрузить конфиг nginx
+  service:
+    name: nginx
+    state: reloaded

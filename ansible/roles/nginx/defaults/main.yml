@@ -1,0 +1,13 @@
+---
+# defaults file for roles/nginx
+
+nginx_port: 80
+
+nginx_root_dir: /var/www/html
+
+nginx_site_title: "My Site"
+
+nginx_greeting: "Hello from Ansible Role!"
+
+nginx_user: www-data
+nginx_group: www-data

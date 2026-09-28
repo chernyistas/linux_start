@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: itsmeУстановка и настройка nginx
+  description: your role description
+  license: MIT
+
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - noble
+
+  galaxy_tags:
+    - nginx
+    - webserver
+
+dependencies: []
+# dependencies:
+#   - role: common
+#   - role: firewall
+#     vars:
+#       firewall_port: "{{ nginx_port }}"    
