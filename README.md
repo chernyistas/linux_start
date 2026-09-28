@@ -24,7 +24,8 @@
 | 17 | Автомасштабирование | HPA: 2–10 Pod'ов, target CPU 70% |
 | 18 | Terraform | IaC: Docker-провайдер, resources, state, variables, outputs |
 | 19 | Terraform + K8s | IaC для Kubernetes: Namespace, Deployment, Service |
-| 20 | Ansible | Playbooks, handlers, templates, roles |
+| 20 | Ansible | Управление конфигурациями: playbooks, handlers, templates, идемпотентность |
+| 21 | Ansible Roles | Роли: defaults, vars, handlers, templates, meta |
 
 ---
 
@@ -74,6 +75,21 @@ devops-practice/
 │   ├── variables.tf                        # Переменные
 │   ├── outputs.tf                          # Выходные данные
 │   └── README.md                           # Описание
+│
+├── ansible/
+│   ├── roles/
+│   │   └── nginx/                          # Роль nginx
+│   │       ├── defaults/                   # Значения по умолчанию
+│   │       ├── handlers/                   # Обработчики
+│   │       ├── tasks/                      # Задачи
+│   │       ├── templates/                  # Jinja2-шаблоны
+│   │       └── meta/                       # Метаданные
+│   ├── playbook-nginx.yml                  # Playbook: вызов роли nginx
+│   ├── install-docker.yml                  # Playbook: установка Docker
+│   ├── setup-app.yml                       # Playbook: настройка приложения
+│   ├── inventory.ini                       # Список хостов
+│   ├── ansible.cfg                         # Настройки Ansible
+│   └── README.md
 │
 ├── .github/
 │   └── workflows/
@@ -189,6 +205,8 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 17: Автомасштабирование (HPA)
 - [x] День 18: Terraform (IaC)
 - [x] День 19: Terraform + Kubernetes
+- [x] День 20: Ansible
+- [x] День 21: Ansible Roles
 ---
 
 ## 📬 Контакты
