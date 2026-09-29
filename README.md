@@ -26,6 +26,7 @@
 | 19 | Terraform + K8s | IaC для Kubernetes: Namespace, Deployment, Service |
 | 20 | Ansible | Управление конфигурациями: playbooks, handlers, templates, идемпотентность |
 | 21 | Ansible Roles | Роли: defaults, vars, handlers, templates, meta |
+| 22 | Ansible Vault | Шифрование секретов: create, edit, vars_files, CI/CD |
 
 ---
 
@@ -89,6 +90,9 @@ devops-practice/
 │   ├── setup-app.yml                       # Playbook: настройка приложения
 │   ├── inventory.ini                       # Список хостов
 │   ├── ansible.cfg                         # Настройки Ansible
+│   ├── secrets.yml                         # Зашифрованные секреты (Vault)
+│   ├── playbook-secrets.yml                # Демонстрация Vault
+│   ├── README-vault.md                     # Описание Vault
 │   └── README.md
 │
 ├── .github/
@@ -207,6 +211,7 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 19: Terraform + Kubernetes
 - [x] День 20: Ansible
 - [x] День 21: Ansible Roles
+- [x] День 22: Ansible Vault
 ---
 
 ## 📬 Контакты
