@@ -15,3 +15,4 @@ actions-runner/
 # Резервные копии
 *.bak
 *.backup
+.vault_pass
