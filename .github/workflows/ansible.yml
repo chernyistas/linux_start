@@ -1,0 +1,39 @@
+# ============================================================
+# ansible.yml — запуск Ansible playbook с Vault
+# ============================================================
+name: Ansible Playbook
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ansible/**'
+  workflow_dispatch:
+
+jobs:
+  run-ansible:
+    runs-on: self-hosted
+
+    steps:
+      # 1. Клонируем репозиторий
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Создаём временный файл с паролем Vault
+      - name: Create vault password file
+        run: |
+          echo "${{ secrets.VAULT_PASSWORD }}" > /tmp/vault_pass
+          chmod 600 /tmp/vault_pass
+
+      # 3. Запускаем playbook
+      - name: Run Ansible playbook
+        run: |
+          cd ansible
+          ansible-playbook playbook-nginx.yml \
+            --vault-password-file /tmp/vault_pass
+
+      # 4. Удаляем файл с паролем(всегда)
+      - name: Clean up vault password file
+        if: always()
+        run: rm -f /tmp/vault_pass
