@@ -27,6 +27,7 @@
 | 20 | Ansible | Управление конфигурациями: playbooks, handlers, templates, идемпотентность |
 | 21 | Ansible Roles | Роли: defaults, vars, handlers, templates, meta |
 | 22 | Ansible Vault | Шифрование секретов: create, edit, vars_files, CI/CD |
+| 23 | CI/CD для Ansible | GitHub Actions + self-hosted runner (itsme) + Vault |
 
 ---
 
@@ -97,8 +98,9 @@ devops-practice/
 │
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml                      # CI/CD: сборка + деплой в K8s
-│
+│       ├── deploy.yml                      # CI/CD: сборка + деплой в K8s
+│       └── ansible.yml                     # CI/CD для Ansible
+│ 
 ├── prometheus/                             # Конфиги Prometheus (Docker Compose)
 │   ├── prometheus.yml                      # Сбор метрик
 │   └── alerts.yml                          # Правила алертов
