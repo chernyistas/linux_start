@@ -28,6 +28,7 @@
 | 21 | Ansible Roles | Роли: defaults, vars, handlers, templates, meta |
 | 22 | Ansible Vault | Шифрование секретов: create, edit, vars_files, CI/CD |
 | 23 | CI/CD для Ansible | GitHub Actions + self-hosted runner (itsme) + Vault |
+| 24 | Terraform + Ansible | Провижининг + конфигурация: полный пайплайн |
 
 ---
 
@@ -95,6 +96,15 @@ devops-practice/
 │   ├── playbook-secrets.yml                # Демонстрация Vault
 │   ├── README-vault.md                     # Описание Vault
 │   └── README.md
+│
+├── terraform-ansible/                      # Terraform + Ansible
+│   ├── main.tf                             # Создание контейнера + inventory
+│   ├── variables.tf                        # Переменные Terraform
+│   ├── outputs.tf                          # Выходные данные
+│   ├── inventory.tpl                       # Шаблон inventory
+│   ├── ansible.cfg                         # Настройки Ansible
+│   ├── playbook.yml                        # Ansible playbook
+│   └── README.md                           # Описание
 │
 ├── .github/
 │   └── workflows/
@@ -214,6 +224,8 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 20: Ansible
 - [x] День 21: Ansible Roles
 - [x] День 22: Ansible Vault
+- [x] День 23: CI/CD для Ansible
+- [x] День 24: Terraform + Ansible
 ---
 
 ## 📬 Контакты
