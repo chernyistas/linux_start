@@ -1,5 +1,10 @@
+# ============================================================
+# .gitignore — файлы, которые НЕ должны попадать в Git
+# ============================================================
+
 # Секреты
 .env
+.vault_pass
 k8s/alertmanager-config.yaml
 
 # Self-hosted runner
@@ -11,8 +16,9 @@ actions-runner/
 **/*.tfstate
 **/*.tfstate.backup
 **/*.tfvars
+terraform-ansible/inventory.ini
 
 # Резервные копии
 *.bak
 *.backup
-.vault_pass
+*.save

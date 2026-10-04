@@ -1,0 +1,70 @@
+# ============================================================
+# playbook.yml — Ansible настраивает ВМ, созданную Terraform
+# ============================================================
+---
+- name: Настройка веб-сервера на ВМ, созданной Terraform
+  hosts: terraform_vms
+
+  become: true
+
+  tasks:
+    # ----------------------------------------------------------
+    # 1. Обновить apt cache
+    # ----------------------------------------------------------
+    - name: Обновить apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    # ----------------------------------------------------------
+    # 2. Установить nginx
+    # ----------------------------------------------------------
+    - name: Установить nginx
+      apt:
+        name: nginx
+        state: present
+
+    # ----------------------------------------------------------
+    # 3. Создать index.html
+    # ----------------------------------------------------------
+    - name: Создать index.html
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Terraform + Ansible</title>
+          </head>
+          <body>
+            <h1>Вм создана Terraform, настроена Ansible</h1>
+            <p>Hostname: {{ ansible_hostname }}</p>
+            <p>IP:  {{ ansible_host }}</p>
+          </body>
+          </html>
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    # ----------------------------------------------------------
+    # 4. Запустить nginx
+    # ----------------------------------------------------------
+    - name: Убедиться, что nginx запущен
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    # ----------------------------------------------------------
+    # 5. Проверить через HTTP
+    # ----------------------------------------------------------
+    - name: Проверить доступность через HTTP
+      uri:
+        url: http://localhost
+        return_content: yes
+      register: nginx_response
+
+
+    - name: Показать статус
+      debug:
+        msg: "Nginx отвечает: {{ nginx_response.status }}"
