@@ -1,4 +1,4 @@
-# DevOps Practice — 30 Days Linux for DevOps
+# DevOps Practice
 ![CI/CD Flask](https://github.com/chernyistas/linux_start/actions/workflows/deploy.yml/badge.svg)
 ![CI/CD Ansible](https://github.com/chernyistas/linux_start/actions/workflows/ansible.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -232,7 +232,17 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 24: Terraform + Ansible
 ---
 
-## 🎓 Итог проекта
+## 🚀 Что дальше (план развития)
+
+- [x] День 1–24: Основы Linux → Terraform + Ansible
+- [ ] GitOps (ArgoCD) — автоматический деплой в K8s из Git
+- [ ] Ansible Galaxy + AWX — углубление в Ansible
+- [ ] Облачные платформы (Yandex Cloud / AWS)
+- [ ] DevSecOps (HashiCorp Vault, Trivy)
+- [ ] Kubernetes: Helm, Operators, Service Mesh
+
+
+## 🎓 Итог
 
 За 24 дня я прошёл путь от `ls` до полного DevOps-стека:
 
