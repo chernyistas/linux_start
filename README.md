@@ -256,22 +256,22 @@ GitHub Actions автоматически собирает образ Flask и �
 ## 🏗️ Архитектура
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ GitHub │
-│ ├── main branch │
-│ ├── GitHub Actions (self-hosted runner) │
-│ └── Docker Hub (образы) │
+│ GitHub                                                   │
+│ ├── main branch                                          │
+│ ├── GitHub Actions (self-hosted runner)                  │
+│ └── Docker Hub (образы)                                  │
 └─────────────────────┬────────────────────────────────────┘
-│ git push
-▼
+                      │ git push
+                      ▼
 ┌──────────────────────────────────────────────────────────┐
-│ VM Ubuntu (192.168.211.129) │
-│ ├── Docker Compose │
-│ │ └── Flask + PostgreSQL + Adminer + Nginx + HTTPS │
-│ ├── minikube (K8s-кластер) │
-│ │ ├── Flask + PostgreSQL + Adminer + Ingress │
-│ │ ├── Prometheus + Grafana + Alertmanager │
-│ │ └── HPA (автомасштабирование) │
-│ └── Terraform + Ansible (провижининг + конфигурация) │
+│ VM Ubuntu (192.168.211.129)                              │
+│ ├── Docker Compose                                       │
+│ │ └── Flask + PostgreSQL + Adminer + Nginx + HTTPS       │
+│ ├── minikube (K8s-кластер)                               │
+│ │ ├── Flask + PostgreSQL + Adminer + Ingress             │
+│ │ ├── Prometheus + Grafana + Alertmanager                │
+│ │ └── HPA (автомасштабирование)                          │
+│ └── Terraform + Ansible (провижининг + конфигурация)     │
 └──────────────────────────────────────────────────────────┘
 ```
 ## 📬 Контакты
