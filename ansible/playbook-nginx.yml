@@ -11,7 +11,7 @@
   become: true
 
   vars:
-    nginx_port: 8080
+    nginx_port: 8090
     nginx_site_title: "DevOps Portfolio"
     nginx_greeting: "Hello from Ansible Role nginx!"
 
