@@ -22,3 +22,4 @@ terraform-ansible/inventory.ini
 *.bak
 *.backup
 *.save
+*.swp
