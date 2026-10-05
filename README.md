@@ -1,5 +1,9 @@
 # DevOps Practice — 30 Days Linux for DevOps
-
+![CI/CD Flask](https://github.com/chernyistas/linux_start/actions/workflows/deploy.yml/badge.svg)
+![CI/CD Ansible](https://github.com/chernyistas/linux_start/actions/workflows/ansible.yml/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Docker](https://img.shields.io/badge/docker-29.x-blue)
+![Kubernetes](https://img.shields.io/badge/kubernetes-1.37-blue)
 Мой учебный проект по пути в DevOps. Здесь я практикую Linux, Docker, Kubernetes, CI/CD и мониторинг.
 
 ---
@@ -228,6 +232,48 @@ GitHub Actions автоматически собирает образ Flask и �
 - [x] День 24: Terraform + Ansible
 ---
 
+## 🎓 Итог проекта
+
+За 24 дня я прошёл путь от `ls` до полного DevOps-стека:
+
+| Навык | Технологии |
+|-------|-----------|
+| Linux | навигация, права, процессы, логи, cron |
+| Bash | переменные, циклы, скрипты бэкапа |
+| Git | ветки, коммиты, GitHub, SSH-ключи |
+| Docker | образы, контейнеры, тома, сети, Dockerfile |
+| Docker Compose | Flask + PostgreSQL + Adminer + Nginx |
+| CI/CD | GitHub Actions, self-hosted runner, SHA-теги |
+| Мониторинг | Prometheus, Grafana, Alertmanager |
+| HTTPS | самоподписанные сертификаты |
+| Метрики | prometheus_flask_exporter |
+| Kubernetes | Deployments, StatefulSets, Ingress, HPA |
+| Helm | kube-prometheus-stack |
+| Terraform | Docker-провайдер, K8s-провайдер |
+| Ansible | playbooks, roles, vault, CI/CD |
+| Terraform + Ansible | провижининг + конфигурация |
+
+## 🏗️ Архитектура
+```
+┌──────────────────────────────────────────────────────────┐
+│ GitHub │
+│ ├── main branch │
+│ ├── GitHub Actions (self-hosted runner) │
+│ └── Docker Hub (образы) │
+└─────────────────────┬────────────────────────────────────┘
+│ git push
+▼
+┌──────────────────────────────────────────────────────────┐
+│ VM Ubuntu (192.168.211.129) │
+│ ├── Docker Compose │
+│ │ └── Flask + PostgreSQL + Adminer + Nginx + HTTPS │
+│ ├── minikube (K8s-кластер) │
+│ │ ├── Flask + PostgreSQL + Adminer + Ingress │
+│ │ ├── Prometheus + Grafana + Alertmanager │
+│ │ └── HPA (автомасштабирование) │
+│ └── Terraform + Ansible (провижининг + конфигурация) │
+└──────────────────────────────────────────────────────────┘
+```
 ## 📬 Контакты
 
 - GitHub: [@chernyistas](https://github.com/chernyistas)
