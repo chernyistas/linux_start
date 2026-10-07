@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'app/**'
+      - 'k8s/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:
+
 
 jobs:
 
