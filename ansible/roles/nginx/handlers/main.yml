@@ -1,11 +1,12 @@
 ---
 # handlers file for roles/nginx
+# ============================================================
+# Handlers запускаются только при notify из задач.
+# Если задача не изменилась — handler не вызывается.
+# ============================================================
+
 - name: Перезапустить nginx
   service:
     name: nginx
     state: restarted
-
-- name: Перезагрузить конфиг nginx
-  service:
-    name: nginx
-    state: reloaded
+  # restarted: перезапустить

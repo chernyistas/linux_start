@@ -54,3 +54,4 @@ ansible/
 - Templates (Jinja2)
 - register + debug + assert
 - Отладка: NO_PUBKEY, Conflicting values, undefined variables
+# test

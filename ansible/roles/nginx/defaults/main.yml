@@ -1,13 +1,22 @@
 ---
 # defaults file for roles/nginx
+# ============================================================
+# Эти переменные можно переопределить в playbook.
+# Приоритет: defaults < vars < playbook vars
+# ============================================================
 
+# Порт, на котором слушает nginx
 nginx_port: 80
 
+# Директория для статики
 nginx_root_dir: /var/www/html
 
-nginx_site_title: "My Site"
+# Заголовок сайта (используется в index.html)
+nginx_site_title: "Nginx from Ansible"
 
-nginx_greeting: "Hello from Ansible Role!"
+# Приветствие (используется в index.html)
+nginx_greeting: "Hello from Ansible Role nginx!"
 
+# Пользователь и группа для файлов
 nginx_user: www-data
 nginx_group: www-data
