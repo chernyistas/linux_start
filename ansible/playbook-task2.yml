@@ -1,0 +1,20 @@
+# ============================================================
+# playbook-task2.yml — развёртывание nginx через роль
+# ============================================================
+# Playbook короткий: вся логика в роли.
+# Здесь только hosts, become, vars, roles.
+# ============================================================
+
+---
+- name: Развёртывание nginx на свежем сервере
+  hosts: fresh_servers
+  become: true
+
+  # Переменные переопределяют defaults роли
+  vars:
+    nginx_port: 80
+    nginx_site_title: "Fresh Server"
+    nginx_greeting: "Hello from Ansible Role on fresh server!"
+
+  roles:
+    - nginx

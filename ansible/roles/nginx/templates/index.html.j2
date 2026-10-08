@@ -9,13 +9,11 @@
 
     <h2>Информация о сервере</h2>
     <ul>
-        <li><strong>Hostname</strong> {{ ansible_hostname }}</li>
-        <li><strong>OS</strong> {{ ansible_distribution }} {{ ansible_distribution_version }}</li>
-        <li><strong>IP</strong> {{ ansible_default_ipv4.address }}</li>
+        <li><strong>Hostname:</strong> {{ ansible_hostname }}</li>
+        <li><strong>OS:</strong> {{ ansible_distribution }} {{ ansible_distribution_version }}</li>
         <li><strong>Port:</strong> {{ nginx_port }}</li>
     </ul>
 
-    <h2>Управление через Ansible Role</h2>
-    <p>Этот сайт настроен ролью <code>nginx</code>.</p>
+    <p>Настроено через <code>Ansible Role nginx</code>.</p>
 </body>
 </html>

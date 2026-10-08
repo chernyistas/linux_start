@@ -1,10 +1,2 @@
 ---
 # vars file for roles/nginx
-
-nginx_config_path: /etc/nginx/sites-available/default
-
-nginx_binary: /usr/sbin/nginx
-
-nginx_packages:
-  - nginx
-  - curl
