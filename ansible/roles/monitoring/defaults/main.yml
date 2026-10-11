@@ -1,0 +1,20 @@
+---
+# defaults file for roles/monitoring
+# ============================================================
+# Эти переменные можно переопределить в playbook.
+# ============================================================
+
+# Порт Prometheus
+prometheus_port: 9090
+
+# Порт Node Exporter
+node_exporter_port: 9100
+
+# Директория для конфигов Prometheus
+prometheus_config_dir: /etc/prometheus
+
+# Директория для данных Prometheus
+prometheus_data_dir: /var/lib/prometheus
+
+# Пользователь для Prometheus
+prometheus_user: prometheus
