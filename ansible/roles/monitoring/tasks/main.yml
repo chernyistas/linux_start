@@ -1,0 +1,85 @@
+---
+# tasks file for roles/monitoring
+# ============================================================
+# tasks/main.yml — задачи роли monitoring
+# ============================================================
+# Что делает роль:
+#   1. Устанавливает Prometheus и Node Exporter
+#   2. Копирует конфиг Prometheus из шаблона
+#   3. Запускает оба сервиса
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. Установить Prometheus
+# ------------------------------------------------------------
+- name: Установить Prometheus
+  apt:
+    name: prometheus
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+# ------------------------------------------------------------
+# 2. Установить Node Exporter
+# ------------------------------------------------------------
+- name: Установить Node Exporter
+  apt:
+    name: prometheus-node-exporter
+    state: present
+
+# ------------------------------------------------------------
+# 3. Скопировать конфиг Prometheus из шаблона
+# ------------------------------------------------------------
+- name: Скопировать конфиг Prometheus
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0644'
+  notify: Перезапустить Prometheus
+
+# ------------------------------------------------------------
+# 4. Убедиться, что Prometheus запущен
+# ------------------------------------------------------------
+- name: Убедиться, что Prometheus запущен
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
+# ------------------------------------------------------------
+# 4.1  Установить пакет daemon (нужен для init-скрипта Node Exporter)
+# ------------------------------------------------------------
+- name:  Установить пакет daemon (нужен для init-скрипта Node Exporter)
+  apt:
+    name: daemon
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+# ------------------------------------------------------------
+# 5. Убедиться, что Node Exporter запущен
+# ------------------------------------------------------------
+- name: Убедиться, что Node Exporter запущен
+  service:
+    name: prometheus-node-exporter
+    state: started
+    enabled: yes
+
+# ------------------------------------------------------------
+# 6. Проверить доступность Prometheus
+# ------------------------------------------------------------
+- name: Проверить Prometheus через HTTP
+  uri:
+    url: "http://127.0.0.1:{{ prometheus_port }}"
+    return_content: no
+  register: prometheus_response
+  until: prometheus_response.status == 200
+  retries: 15
+  delay: 3
+  ignore_errors: yes
+
+- name: Показать статус Prometheus
+  debug:
+    msg: "Prometheus отвечает: {{ prometheus_response.status | default('недоступен') }}"

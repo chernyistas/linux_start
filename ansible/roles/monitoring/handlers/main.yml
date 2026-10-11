@@ -1,0 +1,10 @@
+---
+# handlers file for roles/monitoring
+# ============================================================
+# handlers/main.yml — обработчики роли monitoring
+# ============================================================
+
+- name: Перезапустить Prometheus
+  service:
+    name: prometheus
+    state: restarted
